@@ -51,8 +51,8 @@ impl Vec3 {
         }
     }
 
-    pub fn normalize(&mut self) {
-        *self /= self.length()
+    pub fn normalize(self) -> Self {
+        self / self.length()
     }
 }
 
@@ -134,7 +134,13 @@ impl ops::Mul<f32> for Vec3 {
 impl ops::Div<f32> for Vec3 {
     type Output = Self;
     fn div(self, other: f32) -> Self {
-        self * 1.0 / other
+        self * (1.0 / other)
+    }
+}
+impl ops::Mul<Vec3> for f32 {
+    type Output = Vec3;
+    fn mul(self, other: Vec3) -> Self::Output {
+        other * self
     }
 }
 
@@ -145,9 +151,9 @@ impl std::fmt::Display for Vec3 {
 }
 
 //type aliases
-type Point3 = Vec3;
-type Color = Vec3;
-type Colour = Vec3;
+pub type Point3 = Vec3;
+pub type Color = Vec3;
+pub type Colour = Vec3;
 
 #[cfg(test)]
 mod tests {
